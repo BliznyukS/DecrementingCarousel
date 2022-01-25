@@ -7,6 +7,7 @@ public class CarouselRun {
 
     private int amountOfNotZeroElements; //could be atomicInt
     private LinkedList<Integer> carusel;
+    private int decrementPosition;
 
     public int getAmountOfNotZeroElements() {
         return amountOfNotZeroElements;
@@ -14,6 +15,7 @@ public class CarouselRun {
 
     public void setAmountOfNotZeroElements(int amountOfNotZeroElements) {
         this.amountOfNotZeroElements = amountOfNotZeroElements;
+        this.decrementPosition = 0;
     }
 
     public LinkedList<Integer> getCarusel() {
@@ -31,12 +33,56 @@ public class CarouselRun {
     }
 
     public int next() {
-        //  Возвращает текущее значение текущего элемента, затем уменьшает текущий элемент на единицу и переключается на следующий элемент в порядке добавления.
-        //  Пропускает нулевые элементы. Когда больше нет элементов для уменьшения, возвращает -1
-       //throw new UnsupportedOperationException();
-        carusel.get(0);
-        return  -1;
 
+        if (carusel.isEmpty() || amountOfNotZeroElements == 0) {
+            return -1;
+        }
+//        decrementPosition = 0
+
+        //  Возвращает текущее значение текущего элемента,
+        int currentValue = carusel.get(this.decrementPosition);
+
+
+        //  затем уменьшает текущий элемент на единицу
+        int newValue = currentValue--;
+        carusel.set(decrementPosition, newValue);
+
+        // проверить нужно ли уменьшать amountOfNotZeroElements
+        if (newValue == 0 ) {
+            this.amountOfNotZeroElements--;
+        }
+
+
+
+        //  и переключается на следующий элемент в порядке добавления.
+        //  Пропускает нулевые элементы. Когда больше нет элементов для уменьшения, возвращает -1
+
+
+        this.decrementPosition = calculateNewdecrementPosition(this.decrementPosition);
+
+        return currentValue;
+    }
+
+    private int calculateNewdecrementPosition(int currentDecrementPosition) {
+
+        if (amountOfNotZeroElements == 0) {
+            return 0;
+        }
+
+       // currentDecrementPosition = this.decrementPosition;
+        int newDecrementPosition = 0;
+
+        if ((carusel.size() -1) == decrementPosition) {
+            newDecrementPosition = 0;
+        } else {
+            newDecrementPosition = currentDecrementPosition + 1;
+        }
+
+        if (carusel.get(newDecrementPosition) == 0) {
+            newDecrementPosition= calculateNewdecrementPosition(newDecrementPosition);
+        }
+
+        return newDecrementPosition;
     }
 
     public boolean isFinished() {
@@ -47,6 +93,8 @@ public class CarouselRun {
         } else {
             return true;
         }
+
+
        // throw new UnsupportedOperationException();
     }
 
