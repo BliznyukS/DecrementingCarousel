@@ -2,9 +2,7 @@ package autotasks;
 
 public class DecrementingCarousel {
 
-//    private boolean flag;
 
-    private int currentElementIndexForAdd;// do not need for LinkedList
     private CarouselRun carouselRun;
     private boolean isRunning;
     private int capacity;
@@ -14,7 +12,6 @@ public class DecrementingCarousel {
         this.isRunning = false;
         this.capacity = capacity;
         this.carouselRun = new CarouselRun();
-        // init array
 
     }
 

@@ -27,7 +27,6 @@ public class CarouselRun {
     }
 
 
-
     public CarouselRun() {
         this.carusel = new LinkedList();
     }
@@ -44,42 +43,41 @@ public class CarouselRun {
 
 
         //  затем уменьшает текущий элемент на единицу
-        int newValue = currentValue--;
+        int newValue = currentValue - 1;
         carusel.set(decrementPosition, newValue);
 
         // проверить нужно ли уменьшать amountOfNotZeroElements
-        if (newValue == 0 ) {
+        if (newValue == 0) {
             this.amountOfNotZeroElements--;
         }
-
 
 
         //  и переключается на следующий элемент в порядке добавления.
         //  Пропускает нулевые элементы. Когда больше нет элементов для уменьшения, возвращает -1
 
 
-        this.decrementPosition = calculateNewdecrementPosition(this.decrementPosition);
+        this.decrementPosition = calculateNewDecrementPosition(this.decrementPosition);
 
         return currentValue;
     }
 
-    private int calculateNewdecrementPosition(int currentDecrementPosition) {
+    private int calculateNewDecrementPosition(int currentDecrementPosition) {
 
         if (amountOfNotZeroElements == 0) {
             return 0;
         }
 
-       // currentDecrementPosition = this.decrementPosition;
-        int newDecrementPosition = 0;
+        // currentDecrementPosition = this.decrementPosition;
+        int newDecrementPosition = 0;   // ПЕРЕПИСАТЬ ТЕРНАРНЫМ ОПЕРАТОРОМ
 
-        if ((carusel.size() -1) == decrementPosition) {
+        if ((carusel.size() - 1) == currentDecrementPosition) {
             newDecrementPosition = 0;
         } else {
             newDecrementPosition = currentDecrementPosition + 1;
         }
 
         if (carusel.get(newDecrementPosition) == 0) {
-            newDecrementPosition= calculateNewdecrementPosition(newDecrementPosition);
+            newDecrementPosition = calculateNewDecrementPosition(newDecrementPosition);
         }
 
         return newDecrementPosition;
@@ -88,14 +86,14 @@ public class CarouselRun {
     public boolean isFinished() {
         // Когда больше нету елементов для уменьшения true, иначе false
 
-        if (amountOfNotZeroElements > 0){
+        if (amountOfNotZeroElements > 0) {
             return false;
         } else {
             return true;
         }
 
 
-       // throw new UnsupportedOperationException();
+        // throw new UnsupportedOperationException();
     }
 
 }
